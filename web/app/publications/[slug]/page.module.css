@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+.page {
+  background: #f3f6f9;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: 3rem 1.25rem 6rem;
+  color: #172536;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.backLink {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: #5b6b7c;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  color: #1f5f9b;
+}
+
+.headerRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  background: #e5ebf1;
+  border-radius: 3px;
+  padding: 0.2rem 0.4rem;
+}
+
+.typeTag,
+.year {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #1f5f9b;
+}
+
+.awardedBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #C5B358;
+  border: 1.5px solid #C5B358;
+  border-radius: 5px;
+  padding: 0.1rem 0.5rem;
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  line-height: 1.35;
+  margin: 0 0 0.85rem;
+  letter-spacing: -0.01em;
+}
+
+.authors {
+  font-size: 0.95rem;
+  color: #5b6b7c;
+  margin: 0 0 0.5rem;
+}
+
+.authorLink {
+  color: #5b6b7c;
+  text-decoration: underline;
+  text-decoration-color: #d5dde5;
+  text-underline-offset: 2px;
+}
+
+.authorLink:hover,
+.authorLink:focus-visible {
+  color: #1f5f9b;
+  text-decoration-color: #1f5f9b;
+}
+
+.doiLink {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: #1f5f9b;
+  text-decoration: none;
+  margin-bottom: 2rem;
+}
+
+.doiLink:hover,
+.doiLink:focus-visible {
+  text-decoration: underline;
+}
+
+.section {
+  border-top: 1px solid #d5dde5;
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.sectionHeading {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1f5f9b;
+  margin: 0 0 0.75rem;
+}
+
+.body {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #172536;
+  margin: 0;
+  white-space: pre-line;
+}

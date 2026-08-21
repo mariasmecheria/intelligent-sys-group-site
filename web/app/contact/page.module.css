@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+
+.page {
+  background: #f2f5f3;
+  min-height: 100vh;
+}
+
+
+.header {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 5rem 2rem 2.5rem;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #3F91DE;
+  margin: 0 0 0.7rem;
+}
+
+.heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.05;
+  color: #040425;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem 2rem 6rem;
+  color: #063465;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.blockHeading {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #3F91DE;
+  margin: 0 0 0.35rem;
+  border-bottom: 1px solid #d8ded9;
+  padding-bottom: 0.7rem;
+}
+
+
+.address {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #063465;
+}
+
+
+.link {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.92rem;
+  color: #3F91DE;
+  text-decoration: none;
+  width: fit-content;
+  transition: opacity 0.2s ease;
+}
+
+.link:hover,
+.link:focus-visible {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.vcardLink {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  color: #526579;
+  text-decoration: none;
+  width: fit-content;
+  transition: color 0.2s ease;
+}
+
+.vcardLink:hover,
+.vcardLink:focus-visible {
+  color: #3F91DE;
+  text-decoration: underline;
+}
+
+
+
+.mapWrap {
+  width: 100%;
+  aspect-ratio: 21 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #d8ded9;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+
+@media (max-width: 800px) {
+  .header {
+    padding: 4rem 1.5rem 2rem;
+  }
+
+  .container {
+    padding: 1rem 1.5rem 5rem;
+  }
+
+  .columns {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .mapWrap {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    padding: 3rem 1.25rem 1.5rem;
+  }
+
+  .container {
+    padding: 1rem 1.25rem 4rem;
+  }
+
+  .heading {
+    font-size: 2.4rem;
+  }
+}

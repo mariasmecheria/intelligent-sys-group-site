@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0 1.25rem 6rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+.empty {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #5b6b7c;
+  padding: 3rem 1.25rem;
+  text-align: center;
+}
+
+.banner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 22rem;
+  border-radius: 8px;
+  overflow: hidden;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.banner:hover .image,
+.banner:focus-visible .image {
+  transform: scale(1.03);
+}
+
+.imageFallback {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #172536;
+  color: #78a8d1;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 5rem;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 20, 25, 0.88) 0%,
+    rgba(15, 20, 25, 0.45) 45%,
+    rgba(15, 20, 25, 0.05) 75%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem 2.25rem;
+  color: #f3f6f9;
+}
+
+.typeTag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9fc4e2;
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 600;
+  margin: 0 0 0.6rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.cta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #f3f6f9;
+  opacity: 0.85;
+  transition: opacity 0.15s ease;
+}
+
+.banner:hover .cta,
+.banner:focus-visible .cta {
+  opacity: 1;
+}
+
+.banner:focus-visible {
+  outline: 2px solid #9fc4e2;
+  outline-offset: 3px;
+}
+
+@media (max-width: 40rem) {
+  .banner {
+    height: 16rem;
+  }
+
+  .content {
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transition: none;
+  }
+}

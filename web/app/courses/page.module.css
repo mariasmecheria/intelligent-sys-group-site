@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+.page {
+  background: #F5F8FC;
+  min-height: 100vh;
+}
+
+.header {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 4rem 1.25rem 1.5rem;
+}
+
+.eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #3F91DE;
+  margin: 0 0 0.6rem;
+}
+
+.heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  line-height: 1.15;
+  color: #040425;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.intro {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #063465;
+  font-size: 1rem;
+  line-height: 1.65;
+  max-width: 34rem;
+  margin: 0;
+}

@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+
+
+.page {
+  background: #F5F8FC;
+  min-height: 100vh;
+}
+
+
+
+.banner {
+  width: 100%;
+  height: clamp(18rem, 35vw, 32rem);
+  overflow: hidden;
+  background: #E8F1FA;
+  position: relative;
+}
+
+.bannerImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+
+
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3.5rem 2rem 7rem;
+  color: #040425;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+
+.backLink {
+  display: inline-block;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #526579;
+  text-decoration: none;
+  margin-bottom: 2.5rem;
+  transition: color 0.15s ease;
+}
+
+.backLink:hover,
+.backLink:focus-visible {
+  color: #3F91DE;
+}
+
+
+
+.headerRow {
+  margin-bottom: 0.75rem;
+}
+
+.typeTag {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #3F91DE;
+}
+
+.title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1.08;
+  color: #040425;
+  max-width: 62rem;
+  margin: 0 0 1.25rem;
+  letter-spacing: -0.025em;
+}
+
+.statusLine {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: #526579;
+  margin: 0 0 0.5rem;
+  line-height: 1.5;
+}
+
+.instructorLine {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: #526579;
+  margin: 0 0 0.35rem;
+}
+
+.instructorLink {
+  color: #063465;
+  text-decoration: underline;
+  text-decoration-color: #B9D3EB;
+  text-underline-offset: 3px;
+}
+
+.instructorLink:hover,
+.instructorLink:focus-visible {
+  color: #3F91DE;
+  text-decoration-color: #3F91DE;
+}
+
+.prerequisites {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #526579;
+  margin: 0 0 2.5rem;
+}
+
+
+.section {
+  border-top: 1px solid #D7E2EE;
+  padding-top: 1.75rem;
+  margin-top: 2rem;
+}
+
+.sectionHeading {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #3F91DE;
+  margin: 0 0 1.25rem;
+}
+
+.contentBlocks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem 4rem;
+}
+
+.contentTitle {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #040425;
+  margin: 0 0 0.5rem;
+}
+
+.body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #063465;
+  margin: 0;
+  white-space: pre-line;
+}
+
+
+.bibList {
+  list-style: decimal;
+  padding-left: 1.4rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.bibEntry {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #526579;
+}
+
+
+
+@media (max-width: 900px) {
+
+  .banner {
+    height: clamp(16rem, 40vw, 24rem);
+  }
+
+  .container {
+    padding: 3rem 1.5rem 6rem;
+  }
+
+  .contentBlocks {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .banner {
+    height: 15rem;
+  }
+
+  .container {
+    padding: 2.5rem 1.25rem 5rem;
+  }
+
+  .backLink {
+    margin-bottom: 2rem;
+  }
+
+  .title {
+    font-size: 2.3rem;
+  }
+
+}

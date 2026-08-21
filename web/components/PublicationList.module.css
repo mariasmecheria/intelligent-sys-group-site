@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+.ledger {
+  --paper: #F5F8FC;
+  --ink: #040425;
+  --ink-soft: #526579;
+  --blue: #063465;
+  --accent: #3F91DE;
+  --hairline: #D7E2EE;
+  --chip-bg: #E8F1FA;
+
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 6rem;
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.empty {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--ink-soft);
+  padding: 3rem 0;
+  text-align: center;
+}
+
+.yearSection {
+  margin-bottom: 3rem;
+}
+
+.yearHeading {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--hairline);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.yearCount {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.entryList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 2.75rem 3fr;
+  gap: 0.85rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.entry:last-child {
+  border-bottom: none;
+}
+
+.code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--blue);
+  background: var(--chip-bg);
+  border: 1px solid var(--hairline);
+  border-radius: 3px;
+  height: fit-content;
+  padding: 0.2rem 0.35rem;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+.entryBody {
+  min-width: 0;
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 0.4rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.title a {
+  color: var(--ink);
+  text-decoration: none;
+  background-image: linear-gradient(
+    var(--accent),
+    var(--accent)
+  );
+  background-size: 100% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition:
+    background-size 0.15s ease,
+    color 0.15s ease;
+}
+
+.title a:hover,
+.title a:focus-visible {
+  background-size: 100% 2px;
+  color: var(--accent);
+}
+
+.title a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.awardedBadge {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #C5B358;
+  border: 1.5px solid #C5B358;
+  border-radius: 5px;
+  padding: 0.1rem 0.5rem;
+  white-space: nowrap;
+}
+
+.meta {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+}
+
+.typeTag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.authors {
+  color: var(--ink-soft);
+}
+
+.authorLink {
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-color: var(--hairline);
+  text-underline-offset: 2px;
+}
+
+.authorLink:hover,
+.authorLink:focus-visible {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+.doiLink {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+}
+
+.doiLink:hover,
+.doiLink:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 30rem) {
+  .ledger {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .entry {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .code {
+    width: fit-content;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title a {
+    transition: none;
+  }
+}

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500&display=swap');
+
+.controls {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 1rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.search {
+  flex: 1 1 14rem;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #172536;
+
+  background: #ffffff;
+  border: 1px solid #d5dde5;
+  border-radius: 4px;
+
+  padding: 0.65rem 0.85rem;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.search::placeholder {
+  color: #8a97a5;
+}
+
+.search:hover {
+  border-color: #b8c4d0;
+}
+
+.search:focus-visible,
+.select:focus-visible {
+  outline: none;
+  border-color: #1f5f9b;
+  box-shadow: 0 0 0 2px rgba(31, 95, 155, 0.1);
+}
+
+.select {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.85rem;
+  color: #172536;
+
+  background: #ffffff;
+  border: 1px solid #d5dde5;
+  border-radius: 4px;
+
+  padding: 0.65rem 2rem 0.65rem 0.75rem;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.select:hover {
+  border-color: #b8c4d0;
+}
+
+.resultCount {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1.25rem 1.25rem;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+
+  color: #6b7b8c;
+}
+
+@media (max-width: 32rem) {
+  .controls {
+    flex-direction: column;
+  }
+
+  .search,
+  .select {
+    width: 100%;
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "grants",
+  "info": {
+    "singularName": "grant",
+    "pluralName": "grants",
+    "displayName": "Grant"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "acronym": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "roleLabel": {
+      "type": "string",
+      "required": true
+    },
+    "roleLink": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

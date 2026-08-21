@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_shared_content_breakdowns",
+  "info": {
+    "displayName": "ContentBreakdown",
+    "icon": "eye"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

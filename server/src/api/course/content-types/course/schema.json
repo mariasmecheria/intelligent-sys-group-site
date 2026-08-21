@@ -1,0 +1,87 @@
+{
+  "kind": "collectionType",
+  "collectionName": "courses",
+  "info": {
+    "singularName": "course",
+    "pluralName": "courses",
+    "displayName": "Course"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "courseName": {
+      "type": "string",
+      "required": true
+    },
+    "instructor": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "courseName"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "Undergraduate",
+        "Graduate",
+        "Postgraduate (Doctorate)"
+      ]
+    },
+    "prerequisites": {
+      "type": "string",
+      "default": "none"
+    },
+    "content": {
+      "type": "component",
+      "component": "shared.content-breakdown",
+      "repeatable": true
+    },
+    "mainBibliography": {
+      "type": "component",
+      "component": "shared.bibliography-breakdown",
+      "repeatable": true
+    },
+    "additionalBibliography": {
+      "type": "component",
+      "component": "shared.bibliography-breakdown",
+      "repeatable": true
+    },
+    "team_members": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::team-member.team-member",
+      "inversedBy": "courses"
+    },
+    "coverPicture": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "semester": {
+      "type": "string"
+    },
+    "studyYear": {
+      "type": "enumeration",
+      "enum": [
+        "first year",
+        "second year",
+        "third year",
+        "fourth year"
+      ]
+    },
+    "isCompulsory": {
+      "type": "boolean"
+    },
+    "faculty": {
+      "type": "string"
+    }
+  }
+}

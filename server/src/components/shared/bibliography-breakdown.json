@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_bibliography_breakdowns",
+  "info": {
+    "displayName": "BibliographyBreakdown",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "citation": {
+      "type": "text",
+      "required": true
+    }
+  },
+  "config": {}
+}

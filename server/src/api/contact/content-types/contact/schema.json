@@ -1,0 +1,52 @@
+{
+  "kind": "singleType",
+  "collectionName": "contacts",
+  "info": {
+    "singularName": "contact",
+    "pluralName": "contacts",
+    "displayName": "Contact"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "contactName": {
+      "type": "string",
+      "required": true
+    },
+    "departament": {
+      "type": "string"
+    },
+    "university": {
+      "type": "string"
+    },
+    "postalStreet": {
+      "type": "string"
+    },
+    "postalCity": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "vCardUrl": {
+      "type": "string"
+    },
+    "officeRoom": {
+      "type": "string"
+    },
+    "officeStreet": {
+      "type": "string"
+    },
+    "officeCity": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    }
+  }
+}

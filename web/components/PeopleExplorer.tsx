@@ -39,10 +39,10 @@ export default function PeopleExplorer({ members }: { members: TeamMember[] }) {
     const sorted = [...result];
     switch (sort) {
       case 'name-asc':
-        sorted.sort((a, b) => a.fullName.localeCompare(b.fullName));
+        sorted.sort((a, b) => (a.lastName ?? '').localeCompare(b.lastName ?? ''));
         break;
       case 'name-desc':
-        sorted.sort((a, b) => b.fullName.localeCompare(a.fullName));
+        sorted.sort((a, b) => (b.lastName ?? '').localeCompare(a.lastName ?? ''));
         break;
       case 'pubs-desc':
         sorted.sort((a, b) => b.publicationsCount - a.publicationsCount);

@@ -1,0 +1,106 @@
+# Development Docker Compose configuration.
+#
+# Run everything with:
+#   docker compose watch
+#
+# This builds both images, starts postgres/strapi/nextjs, and keeps watching
+# for file changes — edits inside server/ or web/ sync straight into the
+# running containers (strapi develop / next dev pick them up instantly, no
+# rebuild needed). Only a change to package.json triggers a real rebuild.
+#
+# `name:` is pinned deliberately — this is what fixed the "renaming the
+# project folder wipes my database" issue. Do not remove this line, and do
+# not change its value once set, or Docker will treat it as a brand new
+# project with a brand new (empty) volume.
+
+name: my-strapi-project
+
+services:
+  postgres:
+    image: public.ecr.aws/docker/library/postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  strapi:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    env_file: ./server/.env
+    environment:
+      DATABASE_HOST: postgres
+    ports:
+      - "1337:1337"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    develop:
+      watch:
+        - action: sync
+          path: ./server/src
+          target: /opt/app/src
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./server/config
+          target: /opt/app/config
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./server/public/uploads
+          target: /opt/app/public/uploads
+        - action: rebuild
+          path: ./server/package.json
+
+  nextjs:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.dev
+    restart: unless-stopped
+    env_file: ./web/.env
+    environment:
+      NODE_ENV: development
+      PORT: "3000"
+      STRAPI_INTERNAL_URL: http://strapi:1337
+    ports:
+      - "3000:3000"
+    depends_on:
+      - strapi
+    develop:
+      watch:
+        - action: sync
+          path: ./web/app
+          target: /app/app
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./web/components
+          target: /app/components
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./web/lib
+          target: /app/lib
+          ignore:
+            - node_modules/
+        - action: sync
+          path: ./web/public
+          target: /app/public
+        - action: rebuild
+          path: ./web/package.json
+
+volumes:
+  pgdata:

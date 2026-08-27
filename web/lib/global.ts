@@ -15,11 +15,23 @@ export type Header = {
   navItems: NavItem[];
 };
 
+function getApiBase(): string {
+  return process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+}
+
+function getMediaBase(): string {
+  return process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+}
+
+
+function resolveMediaUrl(media: any): string | undefined {
+  if (!media?.url) return undefined;
+  return media.url.startsWith('http') ? media.url : `${getMediaBase()}${media.url}`;
+}
+
 export async function getHeader(): Promise<Header> {
   const base =
-    process.env.STRAPI_INTERNAL_URL ||
-    process.env.NEXT_PUBLIC_STRAPI_URL ||
-    'http://localhost:1337';
+      getApiBase();
 
   const res = await fetch(
     `${base}/api/global?populate[header][populate]=*`,
@@ -43,9 +55,7 @@ export async function getHeader(): Promise<Header> {
     title: header.title,
     icon: header.icon
       ? {
-          url: header.icon.url.startsWith('http')
-            ? header.icon.url
-            : `${base}${header.icon.url}`,
+         url: resolveMediaUrl(header.icon) as string,
           alternativeText: header.icon.alternativeText,
           width: header.icon.width,
           height: header.icon.height,

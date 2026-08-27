@@ -48,18 +48,28 @@ export type TeamMemberDetail = TeamMember & {
   pageLinks: PageLink[];
 };
 
-function resolvePhoto(base: string, photo: any): TeamMemberPhoto | undefined {
+// URL to fetch data FROM — inside the Docker network, use STRAPI_INTERNAL_URL.
+function getApiBase(): string {
+  return process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+}
+
+// URL to prefix media (image) src attributes with — this ends up in HTML
+// sent to the BROWSER, so it must NEVER be the internal Docker hostname
+// (http://strapi:1337) — only NEXT_PUBLIC_STRAPI_URL is browser-reachable.
+function getMediaBase(): string {
+  return process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+}
+
+function resolvePhoto(photo: any): TeamMemberPhoto | undefined {
   if (!photo?.url) return undefined;
   return {
-    url: photo.url.startsWith('http') ? photo.url : `${base}${photo.url}`,
+    url: photo.url.startsWith('http') ? photo.url : `${getMediaBase()}${photo.url}`,
     alternativeText: photo.alternativeText,
   };
 }
 
 export async function getTeamMembers(): Promise<TeamMember[]> {
-  const base = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-
-  const res = await fetch(`${base}/api/team-members?populate=photo,publications&pagination[pageSize]=200`, {
+  const res = await fetch(`${getApiBase()}/api/team-members?populate=photo,publications&pagination[pageSize]=200`, {
     cache: 'no-store',
   });
 
@@ -76,16 +86,14 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
     lastName: entry.lastName,
     slug: entry.slug,
     title: entry.title,
-    photo: resolvePhoto(base, entry.photo),
+    photo: resolvePhoto(entry.photo),
     publicationsCount: (entry.publications ?? []).length,
   }));
 }
 
 export async function getTeamMemberBySlug(slug: string): Promise<TeamMemberDetail | null> {
-  const base = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
-
   const res = await fetch(
-    `${base}/api/team-members?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=teams,publications,pageLinks,photo`,
+    `${getApiBase()}/api/team-members?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=teams,publications,pageLinks,photo`,
     { cache: 'no-store' }
   );
 
@@ -104,7 +112,7 @@ export async function getTeamMemberBySlug(slug: string): Promise<TeamMemberDetai
     lastName: entry.lastName,
     slug: entry.slug,
     title: entry.title,
-    photo: resolvePhoto(base, entry.photo),
+    photo: resolvePhoto(entry.photo),
     publicationsCount: (entry.publications ?? []).length,
     teams: (entry.teams ?? []).map((t: any) => ({ id: t.id, name: t.name })),
     publications: (entry.publications ?? []).map((p: any) => ({

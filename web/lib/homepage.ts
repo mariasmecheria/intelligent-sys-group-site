@@ -17,13 +17,25 @@ export type Homepage = {
   quickLinks: QuickLink[];
 };
 
-function resolveMediaUrl(base: string, media: any): string | undefined {
+// URL to fetch data FROM — inside the Docker network, use STRAPI_INTERNAL_URL.
+function getApiBase(): string {
+  return process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+}
+
+// URL to prefix media (image) src attributes with — this ends up in HTML
+// sent to the BROWSER, so it must NEVER be the internal Docker hostname
+// (http://strapi:1337) — only NEXT_PUBLIC_STRAPI_URL is browser-reachable.
+function getMediaBase(): string {
+  return process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+}
+
+function resolveMediaUrl(media: any): string | undefined {
   if (!media?.url) return undefined;
-  return media.url.startsWith('http') ? media.url : `${base}${media.url}`;
+  return media.url.startsWith('http') ? media.url : `${getMediaBase()}${media.url}`;
 }
 
 export async function getHomepage(): Promise<Homepage> {
-  const base = process.env.STRAPI_INTERNAL_URL || process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
+  const base = getApiBase();
 
   const res = await fetch(
     `${base}/api/homepage?populate[hero][populate]=*&populate[quickLinks][populate]=image`,
@@ -40,8 +52,8 @@ export async function getHomepage(): Promise<Homepage> {
 
   return {
     hero: {
-      coverImageUrl: resolveMediaUrl(base, hero?.coverImage),
-      iconUrl: resolveMediaUrl(base, hero?.icon),
+      coverImageUrl: resolveMediaUrl(hero?.coverImage),
+      iconUrl: resolveMediaUrl(hero?.icon),
     },
     quickLinks: quickLinks.map((link: any) => ({
       id: link.id,
@@ -49,7 +61,7 @@ export async function getHomepage(): Promise<Homepage> {
       description: link.description,
       href: link.href,
       external: link.external,
-      imageUrl: resolveMediaUrl(base, link.image),
+      imageUrl: resolveMediaUrl(link.image),
     })),
   };
 }

@@ -1,0 +1,22 @@
+# Strapi — development image.
+# Does NOT build the admin bundle — `strapi develop` handles that at runtime.
+FROM node:22-slim
+
+RUN apt-get update && apt-get install -y \
+    python3 \
+    make \
+    g++ \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /opt/app
+
+# Install dependencies first (cached layer — only re-runs if package.json changes)
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# Copy the rest of the source (overwritten by `docker compose watch` syncs after this)
+COPY . .
+
+EXPOSE 1337
+CMD ["npm", "run", "develop"]

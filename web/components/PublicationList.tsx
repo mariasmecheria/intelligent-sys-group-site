@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import type { PublicationWithCode } from '@/lib/publications';
 import { groupByYear, labelFor } from '@/lib/publications';
+import PublicationLinks from './PublicationLinks';
 import styles from './PublicationList.module.css';
 
 export default function PublicationList({ publications }: { publications: PublicationWithCode[] }) {
@@ -53,18 +54,9 @@ export default function PublicationList({ publications }: { publications: Public
                         ))}
                       </span>
                     )}
-
-                    {pub.doi && (
-                      <a
-                        href={`https://doi.org/${pub.doi}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.doiLink}
-                      >
-                        doi:{pub.doi}
-                      </a>
-                    )}
                   </p>
+
+                  <PublicationLinks bibtex={pub.bibtexRaw} doi={pub.doi} links={pub.links} />
                 </div>
               </li>
             ))}

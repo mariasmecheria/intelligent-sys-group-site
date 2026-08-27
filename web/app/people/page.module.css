@@ -7,7 +7,7 @@
 }
 
 .header {
-  max-width: 64rem;
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 4rem 1.25rem 1.5rem;
 }
@@ -39,4 +39,51 @@
   line-height: 1.65;
   max-width: 34rem;
   margin: 0;
+}
+
+.header {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 4rem 1.25rem 1.5rem;
+}
+
+.eyebrow,
+.heading,
+.intro {
+  opacity: 0;
+  animation: fadeUp 0.55s ease-out forwards;
+}
+
+.eyebrow {
+  animation-delay: 0.05s;
+}
+
+.heading {
+  animation-delay: 0.12s;
+}
+
+.intro {
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(0.7rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .heading,
+  .intro {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }

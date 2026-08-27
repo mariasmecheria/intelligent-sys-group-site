@@ -1,3 +1,4 @@
+name: my-strapi-project
 services:
   postgres:
     image: public.ecr.aws/docker/library/postgres:17

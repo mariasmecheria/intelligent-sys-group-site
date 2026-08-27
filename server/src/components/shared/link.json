@@ -16,7 +16,7 @@
     "external": {
       "type": "boolean",
       "required": true,
-      "default": false
+      "default": true
     }
   },
   "config": {}

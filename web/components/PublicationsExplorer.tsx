@@ -8,6 +8,8 @@ import styles from './PublicationsExplorer.module.css';
 
 export default function PublicationsExplorer({ publications }: { publications: PublicationWithCode[] }) {
   const [activeType, setActiveType] = useState<string | null>(null);
+  const [activeYear, setActiveYear] = useState<number | null>(null);
+  const [awardedOnly, setAwardedOnly] = useState(false);
 
   const types = useMemo(() => {
     const counts = new Map<string, number>();
@@ -18,7 +20,26 @@ export default function PublicationsExplorer({ publications }: { publications: P
     return Array.from(counts.entries()).sort((a, b) => a[0].localeCompare(b[0]));
   }, [publications]);
 
-  const filtered = activeType ? publications.filter((p) => (p.publicationType || 'other') === activeType) : publications;
+  const years = useMemo(() => {
+    const set = new Set(publications.map((p) => p.year));
+    return Array.from(set).sort((a, b) => b - a);
+  }, [publications]);
+
+  const filtered = useMemo(() => {
+    let result = publications;
+
+    if (activeType) {
+      result = result.filter((p) => (p.publicationType || 'other') === activeType);
+    }
+    if (activeYear !== null) {
+      result = result.filter((p) => p.year === activeYear);
+    }
+    if (awardedOnly) {
+      result = result.filter((p) => p.awarded);
+    }
+
+    return result;
+  }, [publications, activeType, activeYear, awardedOnly]);
 
   return (
     <div>
@@ -43,6 +64,31 @@ export default function PublicationsExplorer({ publications }: { publications: P
             {labelFor(type)} <span className={styles.count}>{count}</span>
           </button>
         ))}
+      </div>
+
+      <div className={styles.secondaryRow}>
+        <select
+          value={activeYear ?? 'all'}
+          onChange={(e) => setActiveYear(e.target.value === 'all' ? null : Number(e.target.value))}
+          className={styles.select}
+          aria-label="Filter by year"
+        >
+          <option value="all">All years</option>
+          {years.map((year) => (
+            <option key={year} value={year}>
+              {year}
+            </option>
+          ))}
+        </select>
+
+        <button
+          type="button"
+          className={`${styles.awardedToggle} ${awardedOnly ? styles.awardedToggleActive : ''}`}
+          onClick={() => setAwardedOnly((v) => !v)}
+          aria-pressed={awardedOnly}
+        >
+          Awarded only
+        </button>
       </div>
 
       <PublicationList publications={filtered} />

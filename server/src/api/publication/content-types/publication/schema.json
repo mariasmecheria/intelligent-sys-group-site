@@ -28,7 +28,7 @@
         "journal",
         "conference",
         "bookChapter",
-        "editorial",
+        "bookEditorial",
         "thesis"
       ]
     },
@@ -52,6 +52,14 @@
     },
     "referenceCode": {
       "type": "string"
+    },
+    "links": {
+      "type": "component",
+      "component": "shared.link",
+      "repeatable": true
+    },
+    "bibtexRaw": {
+      "type": "text"
     }
   }
 }

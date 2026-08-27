@@ -5,7 +5,7 @@
 }
 
 .header {
-  max-width: 64rem;
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 4rem 1.25rem 1.5rem;
 }

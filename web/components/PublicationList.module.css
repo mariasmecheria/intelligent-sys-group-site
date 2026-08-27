@@ -10,7 +10,7 @@
   --hairline: #D7E2EE;
   --chip-bg: #E8F1FA;
 
-  max-width: 52rem;
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 2rem 1.25rem 6rem;
   color: var(--ink);
@@ -128,8 +128,8 @@
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #C5B358;
-  border: 1.5px solid #C5B358;
+  color: #c9ab3e;
+  border: 1.5px solid #DDBB55;
   border-radius: 5px;
   padding: 0.1rem 0.5rem;
   white-space: nowrap;

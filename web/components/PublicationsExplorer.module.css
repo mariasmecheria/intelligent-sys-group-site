@@ -1,26 +1,39 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500&display=swap');
 
 .filterRow {
-  max-width: 52rem;
+  max-width: var(--page-width, 46rem);
   margin: 0 auto;
-  padding: 0 1.25rem 1.5rem;
+  padding: 0 1.25rem 0.65rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
+.secondaryRow {
+  max-width: var(--page-width, 46rem);
+  margin: 0 auto;
+  padding: 0 1.25rem 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .filterButton {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #526579;
-  background: #FFFFFF;
-  border: 1px solid #D7E2EE;
+
+  color: #5b6b7c;
+  background: #ffffff;
+  border: 1px solid #d5dde5;
   border-radius: 999px;
+
   padding: 0.4rem 0.85rem;
   cursor: pointer;
+
   transition:
     border-color 0.15s ease,
     color 0.15s ease,
@@ -28,26 +41,26 @@
 }
 
 .filterButton:hover {
-  border-color: #3F91DE;
-  color: #063465;
-  background: #F5F8FC;
+  border-color: #3f91de;
+  color: #172536;
+  background: #f7faff;
 }
 
 .filterButton:focus-visible {
-  outline: 2px solid #3F91DE;
+  outline: 2px solid #3f91de;
   outline-offset: 2px;
 }
 
 .filterButtonActive {
-  background: #063465;
-  border-color: #063465;
-  color: #FFFFFF;
+  background: #1f5f9b;
+  border-color: #1f5f9b;
+  color: #ffffff;
 }
 
 .filterButtonActive:hover {
-  background: #3F91DE;
-  border-color: #3F91DE;
-  color: #FFFFFF;
+  color: #ffffff;
+  background: #174b7a;
+  border-color: #174b7a;
 }
 
 .count {
@@ -55,8 +68,70 @@
   margin-left: 0.15rem;
 }
 
+.select {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
+
+  color: #172536;
+  background: #ffffff;
+  border: 1px solid #d5dde5;
+  border-radius: 6px;
+
+  padding: 0.45rem 0.7rem;
+  cursor: pointer;
+}
+
+.select:focus-visible {
+  outline: 2px solid #3f91de;
+  outline-offset: 1px;
+  border-color: #3f91de;
+}
+
+.awardedToggle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  color: #5b6b7c;
+  background: #ffffff;
+  border: 1px solid #d5dde5;
+  border-radius: 6px;
+
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.awardedToggle:hover {
+  border-color: #E8C96A;
+  color: #172536;
+  background: #FFFDF5;
+}
+
+.awardedToggle:focus-visible {
+  outline: 2px solid #E8C96A;
+}
+
+.awardedToggleActive {
+  background: #E8C96A;
+  border-color: #E8C96A;
+  color: #172536;
+}
+
+.awardedToggleActive:hover {
+  background: #DDBB55;
+  border-color: #DDBB55;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .filterButton {
+  .filterButton,
+  .awardedToggle {
     transition: none;
   }
 }

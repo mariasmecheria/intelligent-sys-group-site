@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 
 .page {
@@ -37,8 +38,8 @@
 
 .backLink {
   display: inline-block;
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.75rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.80rem;
   font-weight: 400;
   color: #526579;
   text-decoration: none;
@@ -58,7 +59,7 @@
 }
 
 .typeTag {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -67,7 +68,7 @@
 }
 
 .title {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-weight: 600;
   font-size: clamp(2.3rem, 5vw, 4rem);
   line-height: 1.08;
@@ -120,7 +121,7 @@
 }
 
 .sectionHeading {
-  font-family: 'Roboto Mono', monospace;
+  font-family: 'IBM Plex Mono', monospace;
   font-size: 0.72rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -136,7 +137,7 @@
 }
 
 .contentTitle {
-  font-family: 'Source Serif 4', Georgia, serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: 1.2rem;
   font-weight: 600;
   color: #040425;

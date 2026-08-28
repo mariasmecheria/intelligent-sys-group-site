@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { PublicationLink } from '@/lib/publications';
 import styles from './PublicationLinks.module.css';
 
@@ -85,6 +86,22 @@ function textForLink(label?: string) {
 function BibtexButton({ bibtex }: { bibtex: string }) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Portals need a browser document to exist — guard for SSR.
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock page scroll while the modal is open.
+  useEffect(() => {
+    if (!open) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open]);
 
   async function handleCopy() {
     try {
@@ -96,6 +113,23 @@ function BibtexButton({ bibtex }: { bibtex: string }) {
     }
   }
 
+  const modal = (
+    <div className={styles.overlay} onClick={() => setOpen(false)}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalHeader}>
+          <span className={styles.modalTitle}>BibTeX</span>
+          <button type="button" className={styles.closeButton} onClick={() => setOpen(false)} aria-label="Close">
+            ✕
+          </button>
+        </div>
+        <pre className={styles.bibtexBlock}>{bibtex}</pre>
+        <button type="button" className={styles.copyButton} onClick={handleCopy}>
+          {copied ? 'Copied' : 'Copy to clipboard'}
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <>
       <button type="button" className={styles.pill} onClick={() => setOpen(true)}>
@@ -103,22 +137,13 @@ function BibtexButton({ bibtex }: { bibtex: string }) {
         BibTeX
       </button>
 
-      {open && (
-        <div className={styles.overlay} onClick={() => setOpen(false)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <span className={styles.modalTitle}>BibTeX</span>
-              <button type="button" className={styles.closeButton} onClick={() => setOpen(false)} aria-label="Close">
-                ✕
-              </button>
-            </div>
-            <pre className={styles.bibtexBlock}>{bibtex}</pre>
-            <button type="button" className={styles.copyButton} onClick={handleCopy}>
-              {copied ? 'Copied ✓' : 'Copy to clipboard'}
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Rendered via portal, straight onto <body> — this makes the modal
+          immune to any ancestor with a CSS `transform` (like our entrance
+          animations, which leave `transform: translateY(0)` applied via
+          `animation-fill-mode: forwards`). A transformed ancestor creates
+          a new containing block, which breaks `position: fixed` if the
+          modal is rendered inline instead of portaled out. */}
+      {mounted && open && createPortal(modal, document.body)}
     </>
   );
 }

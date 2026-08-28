@@ -38,6 +38,16 @@ function WebsiteIcon() {
   );
 }
 
+function PowerpointIcon() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M6 2h9l5 5v15H6z" strokeLinejoin="round" />
+      <path d="M15 2v5h5" strokeLinejoin="round" />
+      <path d="M9 8v10M9 8h2.5a3 3 0 0 1 0 6H9" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 function LinkIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -52,6 +62,8 @@ function iconForLink(label?: string) {
       return <PdfIcon />;
     case 'website':
       return <WebsiteIcon />;
+    case 'powerpoint':
+      return <PowerpointIcon />;
     default:
       return <LinkIcon />;
   }
@@ -63,6 +75,8 @@ function textForLink(label?: string) {
       return 'PDF';
     case 'website':
       return 'Website';
+    case 'powerpoint':
+      return 'PowerPoint';
     default:
       return label || 'Link';
   }

@@ -258,3 +258,46 @@
     width: fit-content;
   }
 }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animateIn {
+  opacity: 0;
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.delay1 {
+  animation-delay: 0.08s;
+}
+
+.delay2 {
+  animation-delay: 0.16s;
+}
+
+.delay3 {
+  animation-delay: 0.24s;
+}
+
+.delay4 {
+  animation-delay: 0.32s;
+}

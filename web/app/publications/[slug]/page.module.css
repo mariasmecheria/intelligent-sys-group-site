@@ -13,6 +13,41 @@
   font-family: 'Inter', system-ui, sans-serif;
 }
 
+/* Entrance animations */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animateIn {
+  opacity: 0;
+  animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.delay1 {
+  animation-delay: 0.08s;
+}
+
+.delay2 {
+  animation-delay: 0.16s;
+}
+
+.delay3 {
+  animation-delay: 0.24s;
+}
+
+.delay4 {
+  animation-delay: 0.32s;
+}
+
 .backLink {
   display: inline-block;
   font-family: 'IBM Plex Mono', monospace;
@@ -20,6 +55,7 @@
   color: #5b6b7c;
   text-decoration: none;
   margin-bottom: 2rem;
+  transition: color 0.2s ease;
 }
 
 .backLink:hover,
@@ -127,4 +163,18 @@
   color: #172536;
   margin: 0;
   white-space: pre-line;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animateIn {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .backLink,
+  .authorLink,
+  .doiLink {
+    transition: none;
+  }
 }

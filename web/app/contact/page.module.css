@@ -12,6 +12,7 @@
   max-width: var(--page-width);
   margin: 0 auto;
   padding: 5rem 2rem 2.5rem;
+  animation: fadeInUp 0.6s ease-out both;
 }
 
 .eyebrow {
@@ -55,7 +56,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
+  opacity: 0;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
+
+.block:nth-child(1) { animation-delay: 0.15s; }
+.block:nth-child(2) { animation-delay: 0.25s; }
+
 
 .blockHeading {
   font-family: 'IBM Plex Mono', monospace;
@@ -118,6 +125,9 @@
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid #d8ded9;
+  opacity: 0;
+  animation: fadeInUp 0.55s ease-out forwards;
+  animation-delay: 0.4s;
 }
 
 .map {
@@ -127,6 +137,16 @@
   display: block;
 }
 
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .block,
+  .mapWrap {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
 
 @media (max-width: 800px) {
   .header {
@@ -158,5 +178,16 @@
 
   .heading {
     font-size: 2.4rem;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

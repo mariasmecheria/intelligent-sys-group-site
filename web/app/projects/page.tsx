@@ -1,4 +1,5 @@
 import { getProjects, parseKeywords } from '@/lib/projects';
+
 import styles from './page.module.css';
 
 export default async function ProjectsPage() {
@@ -8,8 +9,12 @@ export default async function ProjectsPage() {
     <main className={styles.page}>
       <header className={styles.header}>
         <p className={styles.eyebrow}>Research</p>
+
         <h1 className={styles.heading}>Projects</h1>
-        <p className={styles.intro}>Research projects carried out by the group.</p>
+
+        <p className={styles.intro}>
+          Research projects carried out by the group.
+        </p>
       </header>
 
       <div className={styles.container}>
@@ -21,27 +26,71 @@ export default async function ProjectsPage() {
               const keywords = parseKeywords(project.keywords);
 
               return (
-                <li key={project.id} className={styles.projectEntry}>
-                  <h2 className={styles.projectTitle}>
-                    {project.link ? (
-                      <a
-                        href={project.link.href}
-                        target={project.link.external ? '_blank' : undefined}
-                        rel={project.link.external ? 'noopener noreferrer' : undefined}
-                      >
-                        {project.acronym}
-                      </a>
-                    ) : (
-                      project.acronym
-                    )}
-                  </h2>
+                <li
+                  key={project.id}
+                  className={styles.projectEntry}
+                >
+                  {project.link?.href ? (
+                    <a
+                      href={project.link.href}
+                      target={
+                        project.link.external
+                          ? '_blank'
+                          : undefined
+                      }
+                      rel={
+                        project.link.external
+                          ? 'noopener noreferrer'
+                          : undefined
+                      }
+                      className={styles.projectLink}
+                    >
+                      <div className={styles.projectMain}>
+                        <div>
+                          <h2 className={styles.projectTitle}>
+                            {project.acronym}
+                          </h2>
 
-                  <p className={styles.projectDescription}>{project.title}</p>
+                          <p className={styles.projectDescription}>
+                            {project.title}
+                          </p>
+                        </div>
+
+                        <span
+                          className={styles.projectArrow}
+                          aria-hidden="true"
+                        >
+                          ↗
+                        </span>
+                      </div>
+
+                      {project.link.label && (
+                        <span className={styles.linkLabel}>
+                          {project.link.label}
+                        </span>
+                      )}
+                    </a>
+                  ) : (
+                    <div className={styles.projectStatic}>
+                      <div>
+                        <h2 className={styles.projectTitle}>
+                          {project.acronym}
+                        </h2>
+
+                        <p className={styles.projectDescription}>
+                          {project.title}
+                        </p>
+                      </div>
+                    </div>
+                  )}
 
                   {keywords.length > 0 && (
                     <div className={styles.keywords}>
                       {keywords.map((kw) => (
-                        <span key={kw} className={styles.keyword}>
+                        <span
+                          key={kw}
+                          className={styles.keyword}
+                        >
                           {kw}
                         </span>
                       ))}

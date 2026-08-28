@@ -7,6 +7,7 @@ import PublicationList from './PublicationList';
 import styles from './PublicationsExplorer.module.css';
 
 export default function PublicationsExplorer({ publications }: { publications: PublicationWithCode[] }) {
+  const [query, setQuery] = useState('');
   const [activeType, setActiveType] = useState<string | null>(null);
   const [activeYear, setActiveYear] = useState<number | null>(null);
   const [awardedOnly, setAwardedOnly] = useState(false);
@@ -28,6 +29,14 @@ export default function PublicationsExplorer({ publications }: { publications: P
   const filtered = useMemo(() => {
     let result = publications;
 
+    if (query.trim()) {
+      const q = query.trim().toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.title?.toLowerCase().includes(q) ||
+          p.team_members.some((m) => m.fullName?.toLowerCase().includes(q))
+      );
+    }
     if (activeType) {
       result = result.filter((p) => (p.publicationType || 'other') === activeType);
     }
@@ -39,10 +48,21 @@ export default function PublicationsExplorer({ publications }: { publications: P
     }
 
     return result;
-  }, [publications, activeType, activeYear, awardedOnly]);
+  }, [publications, query, activeType, activeYear, awardedOnly]);
 
   return (
     <div>
+      <div className={styles.searchRow}>
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search by title or author…"
+          className={styles.search}
+          aria-label="Search publications"
+        />
+      </div>
+
       <div className={styles.filterRow} role="group" aria-label="Filter by publication type">
         <button
           type="button"

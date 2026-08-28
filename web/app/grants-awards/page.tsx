@@ -22,29 +22,38 @@ export default async function GrantsAwardsPage() {
             <p className={styles.empty}>No grants listed yet.</p>
           ) : (
             <ul className={styles.grantList}>
-              {grants.map((grant) => (
-                <li key={grant.id} className={styles.grantEntry}>
-                  <h3 className={styles.grantTitle}>{grant.acronym}</h3>
+              {grants.map((grant) => {
+                const link = grant.roleLink;
+                const body = (
+                  <>
+                    <div className={styles.grantMain}>
+                      <div className={styles.grantTitleRow}>
+                        <h3 className={styles.grantTitle}>{grant.acronym}</h3>
+                        <p className={styles.grantRole}>{grant.roleLabel}</p>
+                      </div>
+                      {link && <span className={styles.grantArrow}>↗</span>}
+                    </div>
+                    {grant.description && <p className={styles.grantDescription}>{grant.description}</p>}
+                  </>
+                );
 
-                  {grant.roleLabel && (
-                    <p className={styles.grantRole}>
-                      {grant.roleLink.length > 0 ? (
-                        <a
-                          href={grant.roleLink[0].href}
-                          target={grant.roleLink[0].external ? '_blank' : undefined}
-                          rel={grant.roleLink[0].external ? 'noopener noreferrer' : undefined}
-                        >
-                          {grant.roleLabel}
-                        </a>
-                      ) : (
-                        grant.roleLabel
-                      )}
-                    </p>
-                  )}
-
-                  {grant.description && <p className={styles.grantDescription}>{grant.description}</p>}
-                </li>
-              ))}
+                return (
+                  <li key={grant.id} className={styles.grantEntry}>
+                    {link ? (
+                      <a
+                        href={link.href}
+                        target={link.external ? '_blank' : undefined}
+                        rel={link.external ? 'noopener noreferrer' : undefined}
+                        className={styles.grantLink}
+                      >
+                        {body}
+                      </a>
+                    ) : (
+                      <div className={styles.grantStatic}>{body}</div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           )}
         </section>

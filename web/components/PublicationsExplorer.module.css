@@ -135,3 +135,31 @@
     transition: none;
   }
 }
+
+.searchRow {
+  max-width: var(--page-width, 46rem);
+  margin: 0 auto;
+  padding: 0 1.25rem 0.85rem;
+}
+ 
+.search {
+  width: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #040425;
+  background: #ffffff;
+  border: 1px solid #D7E2EE;
+  border-radius: 8px;
+  padding: 0.65rem 0.9rem;
+  transition: border-color 0.15s ease;
+}
+ 
+.search::placeholder {
+  color: #8b9bb0;
+}
+ 
+.search:focus-visible {
+  outline: none;
+  border-color: #3F91DE;
+  box-shadow: 0 0 0 3px rgba(63, 145, 222, 0.15);
+}

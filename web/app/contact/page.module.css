@@ -9,7 +9,7 @@
 
 
 .header {
-  max-width: 72rem;
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 5rem 2rem 2.5rem;
 }
@@ -35,7 +35,7 @@
 
 
 .container {
-  max-width: 72rem;
+  max-width: var(--page-width);
   margin: 0 auto;
   padding: 1rem 2rem 6rem;
   color: #063465;

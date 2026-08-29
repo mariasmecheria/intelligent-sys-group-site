@@ -12,9 +12,17 @@ export type QuickLink = {
   imageUrl?: string;
 };
 
+export type Service = {
+  id: number;
+  audience: string;
+  description: string;
+};
+
 export type Homepage = {
   hero: Hero;
+  aboutUsText?: string;
   quickLinks: QuickLink[];
+  services: Service[];
 };
 
 // URL to fetch data FROM — inside the Docker network, use STRAPI_INTERNAL_URL.
@@ -35,10 +43,8 @@ function resolveMediaUrl(media: any): string | undefined {
 }
 
 export async function getHomepage(): Promise<Homepage> {
-  const base = getApiBase();
-
   const res = await fetch(
-    `${base}/api/homepage?populate[hero][populate]=*&populate[quickLinks][populate]=image`,
+    `${getApiBase()}/api/homepage?populate[hero][populate]=*&populate[quickLinks][populate]=image&populate[services][populate]=*`,
     { cache: 'no-store' }
   );
 
@@ -49,12 +55,14 @@ export async function getHomepage(): Promise<Homepage> {
   const json = await res.json();
   const hero = json.data?.hero;
   const quickLinks = json.data?.quickLinks ?? [];
+  const services = json.data?.services ?? [];
 
   return {
     hero: {
       coverImageUrl: resolveMediaUrl(hero?.coverImage),
       iconUrl: resolveMediaUrl(hero?.icon),
     },
+    aboutUsText: json.data?.aboutUsText,
     quickLinks: quickLinks.map((link: any) => ({
       id: link.id,
       title: link.title,
@@ -62,6 +70,11 @@ export async function getHomepage(): Promise<Homepage> {
       href: link.href,
       external: link.external,
       imageUrl: resolveMediaUrl(link.image),
+    })),
+    services: services.map((s: any) => ({
+      id: s.id,
+      audience: s.audience,
+      description: s.description,
     })),
   };
 }

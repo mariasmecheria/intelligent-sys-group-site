@@ -2,6 +2,10 @@
   width: min(100% - 2.5rem, var(--page-width, 72rem));
   margin: 0 auto;
   padding: 3.5rem 0 4rem;
+
+  opacity: 0;
+  animation: fadeInUp 1.2s ease-out forwards;
+  animation-delay: 1s
 }
 
 /* Header */
@@ -176,15 +180,21 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .navButton,
-  .card,
-  .scroller {
-    transition: none;
-    scroll-behavior: auto;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .card:hover {
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    animation: none;
+    opacity: 1;
     transform: none;
   }
 }

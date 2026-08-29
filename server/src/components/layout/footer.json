@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_layout_footers",
+  "info": {
+    "displayName": "Footer",
+    "icon": "walk"
+  },
+  "options": {},
+  "attributes": {
+    "partners": {
+      "type": "component",
+      "component": "shared.partner",
+      "repeatable": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "footerLinks": {
+      "type": "component",
+      "component": "shared.quick-link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

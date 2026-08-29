@@ -122,7 +122,7 @@ export async function getFooter(): Promise<Footer> {
     partners: (footer.partners ?? []).map((p: any) => ({
       id: p.id,
       name: p.name,
-      logoUrl: resolveMediaUrl(p.logo?.[0]),
+      logoUrl: resolveMediaUrl(p.logo),
     })),
     phone: footer.phone,
     email: footer.email,

@@ -20,6 +20,14 @@
       "type": "component",
       "component": "shared.quick-link",
       "repeatable": true
+    },
+    "aboutUsText": {
+      "type": "text"
+    },
+    "services": {
+      "type": "component",
+      "component": "shared.service",
+      "repeatable": true
     }
   }
 }

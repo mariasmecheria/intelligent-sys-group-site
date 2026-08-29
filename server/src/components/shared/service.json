@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_shared_services",
+  "info": {
+    "displayName": "Service",
+    "icon": "shoppingCart"
+  },
+  "options": {},
+  "attributes": {
+    "audience": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

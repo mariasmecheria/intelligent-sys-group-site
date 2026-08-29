@@ -480,12 +480,107 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
-  collectionName: 'authors';
+export interface ApiContactContact extends Struct.SingleTypeSchema {
+  collectionName: 'contacts';
   info: {
-    displayName: 'Author';
-    pluralName: 'authors';
-    singularName: 'author';
+    displayName: 'Contact';
+    pluralName: 'contacts';
+    singularName: 'contact';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    contactName: Schema.Attribute.String & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    departament: Schema.Attribute.String;
+    email: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::contact.contact'
+    > &
+      Schema.Attribute.Private;
+    officeCity: Schema.Attribute.String;
+    officeRoom: Schema.Attribute.String;
+    officeStreet: Schema.Attribute.String;
+    phone: Schema.Attribute.String;
+    postalCity: Schema.Attribute.String;
+    postalCode: Schema.Attribute.String;
+    postalStreet: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    university: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    vCardUrl: Schema.Attribute.String;
+  };
+}
+
+export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'courses';
+  info: {
+    displayName: 'Course';
+    pluralName: 'courses';
+    singularName: 'course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    additionalBibliography: Schema.Attribute.Component<
+      'shared.bibliography-breakdown',
+      true
+    >;
+    content: Schema.Attribute.Component<'shared.content-breakdown', true>;
+    courseName: Schema.Attribute.String & Schema.Attribute.Required;
+    coverPicture: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    faculty: Schema.Attribute.String;
+    instructor: Schema.Attribute.String;
+    isCompulsory: Schema.Attribute.Boolean;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course.course'
+    > &
+      Schema.Attribute.Private;
+    mainBibliography: Schema.Attribute.Component<
+      'shared.bibliography-breakdown',
+      true
+    >;
+    prerequisites: Schema.Attribute.String & Schema.Attribute.DefaultTo<'none'>;
+    publishedAt: Schema.Attribute.DateTime;
+    semester: Schema.Attribute.String;
+    slug: Schema.Attribute.UID<'courseName'>;
+    studyYear: Schema.Attribute.Enumeration<
+      ['first year', 'second year', 'third year', 'fourth year']
+    >;
+    team_members: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::team-member.team-member'
+    >;
+    type: Schema.Attribute.Enumeration<
+      ['Undergraduate', 'Graduate', 'Postgraduate (Doctorate)']
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGlobalGlobal extends Struct.SingleTypeSchema {
+  collectionName: 'globals';
+  info: {
+    displayName: 'Global';
+    pluralName: 'globals';
+    singularName: 'global';
   };
   options: {
     draftAndPublish: true;
@@ -494,23 +589,15 @@ export interface ApiAuthorAuthor extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    firstName: Schema.Attribute.String & Schema.Attribute.Required;
-    lastName: Schema.Attribute.String & Schema.Attribute.Required;
+    footer: Schema.Attribute.Component<'layout.footer', false>;
+    header: Schema.Attribute.Component<'layout.header', false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::author.author'
+      'api::global.global'
     > &
       Schema.Attribute.Private;
-    publications: Schema.Attribute.Relation<
-      'manyToMany',
-      'api::publication.publication'
-    >;
     publishedAt: Schema.Attribute.DateTime;
-    team_member: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::team-member.team-member'
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -532,15 +619,76 @@ export interface ApiGrantGrant extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fundingCode: Schema.Attribute.String;
-    fundingProgram: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::grant.grant'> &
       Schema.Attribute.Private;
-    partner: Schema.Attribute.String;
-    period: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'acronym'>;
+    roleLabel: Schema.Attribute.String & Schema.Attribute.Required;
+    roleLink: Schema.Attribute.Component<'shared.link', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
+  collectionName: 'homepages';
+  info: {
+    displayName: 'Homepage';
+    pluralName: 'homepages';
+    singularName: 'homepage';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutUsText: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    hero: Schema.Attribute.Component<'layout.hero', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::homepage.homepage'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    quickLinks: Schema.Attribute.Component<'shared.quick-link', true>;
+    services: Schema.Attribute.Component<'shared.service', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProjectProject extends Struct.CollectionTypeSchema {
+  collectionName: 'projects';
+  info: {
+    displayName: 'Project';
+    pluralName: 'projects';
+    singularName: 'project';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    acronym: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    keywords: Schema.Attribute.Text;
+    link: Schema.Attribute.Component<'shared.link', false>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::project.project'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -560,91 +708,35 @@ export interface ApiPublicationPublication extends Struct.CollectionTypeSchema {
   };
   attributes: {
     abstract: Schema.Attribute.Text;
-    articleNumber: Schema.Attribute.String;
-    authors: Schema.Attribute.Relation<'manyToMany', 'api::author.author'>;
-    awarded: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    bibtextRaw: Schema.Attribute.Blocks;
-    bookTitle: Schema.Attribute.String;
-    citeKey: Schema.Attribute.String & Schema.Attribute.Unique;
+    awarded: Schema.Attribute.Boolean;
+    bibtexRaw: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    doi: Schema.Attribute.String & Schema.Attribute.Unique;
-    editor: Schema.Attribute.String;
-    entryType: Schema.Attribute.Enumeration<
-      [
-        'article',
-        'inproceedings',
-        'incollection',
-        'book',
-        'theses',
-        'misc',
-        'proceedings',
-      ]
-    >;
-    eventDate: Schema.Attribute.String;
-    isbn: Schema.Attribute.String;
-    issn: Schema.Attribute.String;
-    journalName: Schema.Attribute.String;
-    keywords: Schema.Attribute.Text;
+    doi: Schema.Attribute.String;
+    fullCitation: Schema.Attribute.Text;
+    links: Schema.Attribute.Component<'shared.link', true>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::publication.publication'
     > &
       Schema.Attribute.Private;
-    location: Schema.Attribute.String;
-    month: Schema.Attribute.String;
-    number: Schema.Attribute.String;
-    organization: Schema.Attribute.String;
-    pages: Schema.Attribute.String;
-    projects: Schema.Attribute.String;
     publicationType: Schema.Attribute.Enumeration<
-      ['journal', 'conference', 'book', 'bookChapter', 'thesis']
+      ['journal', 'conference', 'bookChapter', 'bookEditorial', 'thesis']
     >;
     publishedAt: Schema.Attribute.DateTime;
-    publisher: Schema.Attribute.String;
-    series: Schema.Attribute.String;
+    referenceCode: Schema.Attribute.String;
     slug: Schema.Attribute.UID<'title'>;
+    team_members: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::team-member.team-member'
+    >;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    volume: Schema.Attribute.String;
     year: Schema.Attribute.Integer;
-  };
-}
-
-export interface ApiSystemSystem extends Struct.CollectionTypeSchema {
-  collectionName: 'systems';
-  info: {
-    displayName: 'System';
-    pluralName: 'systems';
-    singularName: 'system';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    acronym: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    keywords: Schema.Attribute.Text;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::system.system'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    slug: Schema.Attribute.UID<'acronym'>;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
   };
 }
 
@@ -659,22 +751,60 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
-    author: Schema.Attribute.Relation<'oneToOne', 'api::author.author'>;
+    courses: Schema.Attribute.Relation<'manyToMany', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    first_name: Schema.Attribute.String & Schema.Attribute.Required;
-    last_name: Schema.Attribute.String & Schema.Attribute.Required;
+    firstName: Schema.Attribute.String;
+    fullName: Schema.Attribute.String & Schema.Attribute.Required;
+    lastName: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::team-member.team-member'
     > &
       Schema.Attribute.Private;
+    pageLinks: Schema.Attribute.Component<'shared.link', true>;
+    photo: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    publications: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::publication.publication'
+    >;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'fullName'>;
+    teams: Schema.Attribute.Relation<'manyToMany', 'api::team.team'>;
     title: Schema.Attribute.Enumeration<
       ['Professor', 'Associate Professor', 'Lecturer', 'PhD student']
     >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiTeamTeam extends Struct.CollectionTypeSchema {
+  collectionName: 'teams';
+  info: {
+    displayName: 'Team';
+    pluralName: 'teams';
+    singularName: 'team';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::team.team'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    team_members: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::team-member.team-member'
+    >;
+    teamName: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1193,11 +1323,15 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
-      'api::author.author': ApiAuthorAuthor;
+      'api::contact.contact': ApiContactContact;
+      'api::course.course': ApiCourseCourse;
+      'api::global.global': ApiGlobalGlobal;
       'api::grant.grant': ApiGrantGrant;
+      'api::homepage.homepage': ApiHomepageHomepage;
+      'api::project.project': ApiProjectProject;
       'api::publication.publication': ApiPublicationPublication;
-      'api::system.system': ApiSystemSystem;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
+      'api::team.team': ApiTeamTeam;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

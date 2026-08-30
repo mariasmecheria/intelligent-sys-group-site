@@ -42,20 +42,20 @@ export default async function CourseDetailPage({
       )}
 
       <div className={styles.container}>
-        <Link href="/courses" className={styles.backLink}>
+        <Link href="/courses" className={`${styles.backLink} ${styles.animateIn} ${styles.delay1}`}>
           ← All courses
         </Link>
 
-        <div className={styles.headerRow}>
+        <div className={`${styles.headerRow} ${styles.animateIn} ${styles.delay2}`}>
           {course.type && <span className={styles.typeTag}>{titleCase(course.type)}</span>}
         </div>
 
-        <h1 className={styles.title}>{course.courseName}</h1>
+        <h1 className={`${styles.title} ${styles.animateIn} ${styles.delay2}`}>{course.courseName}</h1>
 
-        <p className={styles.statusLine}>{buildStatusSentence(course)}</p>
+        <p className={`${styles.statusLine} ${styles.animateIn} ${styles.delay3}`}>{buildStatusSentence(course)}</p>
 
         {course.team_members.length > 0 ? (
-          <p className={styles.instructorLine}>
+          <p className={`${styles.instructorLine} ${styles.animateIn} ${styles.delay3}`}>
             {course.team_members.length > 1 ? 'Instructors: ' : 'Instructor: '}
             {course.team_members.map((member, i) => (
               <span key={member.id}>
@@ -67,17 +67,25 @@ export default async function CourseDetailPage({
             ))}
           </p>
         ) : (
-          course.instructor && <p className={styles.instructorLine}>Instructor: {course.instructor}</p>
+          course.instructor && (
+            <p className={`${styles.instructorLine} ${styles.animateIn} ${styles.delay3}`}>
+              Instructor: {course.instructor}
+            </p>
+          )
         )}
 
-        {hasPrerequisites && <p className={styles.prerequisites}>Prerequisites: {course.prerequisites}</p>}
+        {hasPrerequisites && (
+          <p className={`${styles.prerequisites} ${styles.animateIn} ${styles.delay4}`}>
+            Prerequisites: {course.prerequisites}
+          </p>
+        )}
 
         {course.content.length > 0 && (
-          <section className={styles.section}>
+          <section className={`${styles.section} ${styles.animateIn} ${styles.delay4}`}>
             <h2 className={styles.sectionHeading}>Course content</h2>
             <div className={styles.contentBlocks}>
               {course.content.map((block) => (
-                <div key={block.id} className={styles.contentBlock}>
+                <div key={block.id}>
                   <h3 className={styles.contentTitle}>{block.title}</h3>
                   {block.content && <p className={styles.body}>{block.content}</p>}
                 </div>
@@ -87,7 +95,7 @@ export default async function CourseDetailPage({
         )}
 
         {course.mainBibliography.length > 0 && (
-          <section className={styles.section}>
+          <section className={`${styles.section} ${styles.animateIn} ${styles.delay5}`}>
             <h2 className={styles.sectionHeading}>Main bibliography</h2>
             <ol className={styles.bibList}>
               {course.mainBibliography.map((entry) => (
@@ -100,7 +108,7 @@ export default async function CourseDetailPage({
         )}
 
         {course.additionalBibliography.length > 0 && (
-          <section className={styles.section}>
+          <section className={`${styles.section} ${styles.animateIn} ${styles.delay5}`}>
             <h2 className={styles.sectionHeading}>Additional bibliography</h2>
             <ol className={styles.bibList}>
               {course.additionalBibliography.map((entry) => (

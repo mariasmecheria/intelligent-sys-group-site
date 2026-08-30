@@ -1,0 +1,206 @@
+.section {
+  max-width: var(--page-width, 72rem);
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+
+  opacity: 0;
+  animation: sectionReveal 0.9s ease-out forwards;
+  animation-delay: 0.85s;
+}
+
+/* Header */
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.heading {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #040425;
+  margin: 0;
+}
+
+.viewAll {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  color: #3f91de;
+  text-decoration: none;
+}
+
+.viewAll:hover,
+.viewAll:focus-visible {
+  text-decoration: underline;
+}
+
+/* Publication links */
+
+.list {
+  border-top: 1px solid #d7e2ee;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+
+  padding: 1.1rem 0;
+
+  border-bottom: 1px solid #d7e2ee;
+
+  text-decoration: none;
+  color: inherit;
+
+  opacity: 0;
+  animation: linkReveal 0.6s ease-out forwards;
+
+  transition:
+    padding 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.link:nth-child(1) {
+  animation-delay: 1s;
+}
+
+.link:nth-child(2) {
+  animation-delay: 1.08s;
+}
+
+.link:nth-child(3) {
+  animation-delay: 1.16s;
+}
+
+.link:nth-child(4) {
+  animation-delay: 1.24s;
+}
+
+.link:nth-child(5) {
+  animation-delay: 1.32s;
+}
+
+.link:nth-child(n + 6) {
+  animation-delay: 1.4s;
+}
+
+.link:hover,
+.link:focus-visible {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.linkContent {
+  min-width: 0;
+}
+
+.typeTag {
+  display: block;
+
+  margin-bottom: 0.3rem;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+
+  color: #3f91de;
+}
+
+.title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+
+  color: #040425;
+
+  margin: 0;
+
+  transition: color 0.2s ease;
+}
+
+.link:hover .title,
+.link:focus-visible .title {
+  color: #3f91de;
+}
+
+.authors {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+
+  color: #526579;
+
+  margin: 0.25rem 0 0;
+}
+
+.arrow {
+  flex-shrink: 0;
+
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1rem;
+
+  color: #3f91de;
+
+  transition: transform 0.2s ease;
+}
+
+.link:hover .arrow,
+.link:focus-visible .arrow {
+  transform: translateX(4px);
+}
+
+/* Section animation */
+
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Individual link animation */
+
+@keyframes linkReveal {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .link {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .title,
+  .arrow {
+    transition: none;
+  }
+}
+

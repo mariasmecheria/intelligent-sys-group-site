@@ -43,6 +43,7 @@ export type PageLink = {
 };
 
 export type TeamMemberDetail = TeamMember & {
+  aboutMe?: string;
   teams: { id: number; name: string }[];
   publications: TeamMemberPublication[];
   pageLinks: PageLink[];
@@ -114,6 +115,7 @@ export async function getTeamMemberBySlug(slug: string): Promise<TeamMemberDetai
     title: entry.title,
     photo: resolvePhoto(entry.photo),
     publicationsCount: (entry.publications ?? []).length,
+    aboutMe: entry.aboutMe,
     teams: (entry.teams ?? []).map((t: any) => ({ id: t.id, name: t.name })),
     publications: (entry.publications ?? []).map((p: any) => ({
       id: p.id,

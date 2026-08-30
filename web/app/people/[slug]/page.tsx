@@ -56,11 +56,11 @@ export default async function PersonDetailPage({
       </div>
 
       <div className={styles.container}>
-        <Link href="/people" className={styles.backLink}>
+        <Link href="/people" className={`${styles.backLink} ${styles.animateIn} ${styles.delay1}`}>
           ← All people
         </Link>
 
-        <section className={styles.profileHeader}>
+        <section className={`${styles.profileHeader} ${styles.animateIn} ${styles.delay2}`}>
           <div className={styles.profileHero}>
             <div className={styles.photoWrap}>
               {person.photo ? (
@@ -97,7 +97,7 @@ export default async function PersonDetailPage({
         </section>
 
         {person.pageLinks.length > 0 && (
-          <div className={styles.externalLinks}>
+          <div className={`${styles.externalLinks} ${styles.animateIn} ${styles.delay3}`}>
             {person.pageLinks.map((link, i) => (
               <a
                 key={i}
@@ -113,7 +113,14 @@ export default async function PersonDetailPage({
           </div>
         )}
 
-        <section className={styles.section}>
+        {person.aboutMe && (
+          <section className={`${styles.section} ${styles.animateIn} ${styles.delay4}`}>
+            <h2 className={styles.sectionHeading}>About Me</h2>
+            <p className={styles.body}>{person.aboutMe}</p>
+          </section>
+        )}
+
+        <section className={`${styles.section} ${styles.animateIn} ${styles.delay5}`}>
           <h2 className={styles.sectionHeading}>
             Publications
             <span className={styles.count}>

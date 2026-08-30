@@ -1,3 +1,6 @@
+import type { Publication, PublicationLink } from '@/lib/publications';
+import type { TeamMember } from '@/lib/team';
+
 export type Hero = {
   coverImageUrl?: string;
   iconUrl?: string;
@@ -18,10 +21,27 @@ export type Service = {
   description: string;
 };
 
+export type SelectedPublication = {
+  id: number;
+  title: string;
+  slug: string;
+  abstract?: string;
+  fullCitation?: string;
+  publicationType: string;
+  year: number;
+  awarded: boolean;
+  doi?: string;
+  referenceCode?: string;
+  bibtexRaw?: string;
+  links: PublicationLink[];
+  team_members: TeamMember[];
+};
+
 export type Homepage = {
   hero: Hero;
   aboutUsText?: string;
   quickLinks: QuickLink[];
+  selectedPublications: SelectedPublication[];
   services: Service[];
 };
 
@@ -44,7 +64,7 @@ function resolveMediaUrl(media: any): string | undefined {
 
 export async function getHomepage(): Promise<Homepage> {
   const res = await fetch(
-    `${getApiBase()}/api/homepage?populate[hero][populate]=*&populate[quickLinks][populate]=image&populate[services][populate]=*`,
+    `${getApiBase()}/api/homepage?populate[hero][populate]=*&populate[quickLinks][populate]=image&populate[services][populate]=*&populate[selectedPublications][populate]=team_members`,
     { cache: 'no-store' }
   );
 
@@ -56,6 +76,7 @@ export async function getHomepage(): Promise<Homepage> {
   const hero = json.data?.hero;
   const quickLinks = json.data?.quickLinks ?? [];
   const services = json.data?.services ?? [];
+  const selectedPublications = json.data?.selectedPublications ?? [];
 
   return {
     hero: {
@@ -70,6 +91,19 @@ export async function getHomepage(): Promise<Homepage> {
       href: link.href,
       external: link.external,
       imageUrl: resolveMediaUrl(link.image),
+    })),
+    selectedPublications: selectedPublications.map((pub: any) => ({
+      id: pub.id,
+      title: pub.title,
+      slug: pub.slug,
+      year: pub.year,
+      publicationType: pub.publicationType,
+      referenceCode: pub.referenceCode,
+      team_members: (pub.team_members ?? []).map((m: any) => ({
+        id: m.id,
+        fullName: m.fullName,
+        slug: m.slug,
+      })),
     })),
     services: services.map((s: any) => ({
       id: s.id,

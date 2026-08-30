@@ -656,6 +656,10 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     quickLinks: Schema.Attribute.Component<'shared.quick-link', true>;
+    selectedPublications: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::publication.publication'
+    >;
     services: Schema.Attribute.Component<'shared.service', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -751,6 +755,7 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    aboutMe: Schema.Attribute.Text;
     courses: Schema.Attribute.Relation<'manyToMany', 'api::course.course'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &

@@ -169,6 +169,21 @@
   font-weight: 400;
 }
 
+.body {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #172536;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.empty {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.9rem;
+  color: #7a8998;
+}
+
 .pubList {
   list-style: none;
   margin: 0;
@@ -300,4 +315,22 @@
 
 .delay4 {
   animation-delay: 0.32s;
+}
+
+.delay5 {
+  animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animateIn {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .backLink,
+  .externalLink,
+  .pubEntry {
+    transition: none;
+  }
 }

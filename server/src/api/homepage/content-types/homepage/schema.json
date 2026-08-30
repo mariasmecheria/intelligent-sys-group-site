@@ -28,6 +28,11 @@
       "type": "component",
       "component": "shared.service",
       "repeatable": true
+    },
+    "selectedPublications": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::publication.publication"
     }
   }
 }

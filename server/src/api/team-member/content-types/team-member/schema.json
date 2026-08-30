@@ -30,6 +30,9 @@
         "PhD student"
       ]
     },
+    "aboutMe": {
+      "type": "text"
+    },
     "photo": {
       "type": "media",
       "multiple": false,

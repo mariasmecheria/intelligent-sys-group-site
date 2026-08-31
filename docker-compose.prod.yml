@@ -1,0 +1,98 @@
+name: my-strapi-project
+
+services:
+  postgres:
+    image: public.ecr.aws/docker/library/postgres:17
+    restart: unless-stopped
+    env_file: ./server/.env
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # No ports: exposed to the host in production -- only strapi needs to
+    # reach it, over the internal Docker network. Uncomment if you need
+    # direct DB access (e.g. a GUI tool) on the production host itself.
+    # ports:
+    #   - "5432:5432"
+
+  strapi:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      args:
+        PUBLIC_STRAPI_URL: ${PUBLIC_STRAPI_URL}
+        STRAPI_ADMIN_URL: ${STRAPI_ADMIN_URL}
+    restart: unless-stopped
+    env_file: ./server/.env
+    environment:
+      NODE_ENV: production
+      DATABASE_HOST: postgres
+      PUBLIC_STRAPI_URL: ${PUBLIC_STRAPI_URL}
+      STRAPI_ADMIN_URL: ${STRAPI_ADMIN_URL}
+    volumes:
+      # Only uploads need to persist in production -- schema/code come
+      # from the built image, not live-edited via bind mount.
+      - ./server/public/uploads:/opt/app/public/uploads
+    ports:
+      - "1337:1337"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  nextjs:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL}
+    restart: unless-stopped
+    env_file: ./web/.env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL}
+      STRAPI_INTERNAL_URL: http://strapi:1337
+    ports:
+      - "3000:3000"
+    depends_on:
+      - strapi
+
+  # Automated daily Postgres backups, 7-day retention. Dumps land in
+  # ./backups on the host (same folder your manual backup-db.sh uses).
+  db-backup:
+    image: public.ecr.aws/docker/library/postgres:17
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGHOST: postgres
+      PGDATABASE: ${DATABASE_NAME}
+      PGUSER: ${DATABASE_USERNAME}
+      PGPASSWORD: ${DATABASE_PASSWORD}
+    env_file: ./server/.env
+    volumes:
+      - ./backups:/backups
+    entrypoint: >
+      sh -c '
+        while true; do
+          TIMESTAMP=$$(date +%Y-%m-%d_%H-%M-%S)
+          echo "[$$TIMESTAMP] Starting backup...";
+          pg_dump -Fc > /backups/backup_$$TIMESTAMP.dump;
+          echo "[$$TIMESTAMP] Backup complete: backup_$$TIMESTAMP.dump";
+          find /backups -name "backup_*.dump" -mtime +7 -delete;
+          echo "Cleaned old backups. Sleeping 24h...";
+          sleep 86400;
+        done
+      '
+
+volumes:
+  pgdata:

@@ -6,7 +6,7 @@ Strapi and Next.js run **natively** (not in Docker); only PostgreSQL runs in a c
 
 ```bash
 # Start PostgreSQL
-docker compose up -d
+docker compose up postgres -d
 
 # Terminal 1 — Strapi
 cd server
